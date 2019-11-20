@@ -12,37 +12,40 @@ module.exports = function (app) {
 
     //POST to handle survey data
     app.post("/api/friends", function (req, res) {
-
+        var bestMatch = {
+            name: "",
+            photo: "",
+            friendDiff: 100
+        };
         //body-parser middleware helps in getting req.body
-        var newEntryScores = req.body.scores;
-        var scoresArray = [];
-        var bestMatch = 0;
-    
+        var newEntry = req.body;
+        var userScores = newEntry.scores;
+        var scoresDiff = 0;
+
         //runs through all current friends 
-        for(var i=0; i<friendData.length; i++){
-          var scoresDiff = 0;
-          //run through scores to compare friends
-          for(var j=0; j<newEntryScores.length; j++){
-            scoresDiff += (Math.abs(parseInt(friends[i].scores[j]) - parseInt(newEntryScores[j])));
-          }
-    
-          //push results into scoresArray
-          scoresArray.push(scoresDiff);
+        for (var i = 0; i < friendData.length; i++) {
+            scoresDiff = 0;
+            //run through scores to compare friends
+            for (var j = 0; j < friendData[i].scores[j]; j++) {
+                scoresDiff += Math.abs(parseInt(userScores[j]) - (parseInt(friendData[i].scores[j])))
+
+                if (scoresDiff <= bestMatch.friendDiff) {
+                    bestMatch.name = friendData[i].name;
+                    bestMatch.photo = friendData[i].photo;
+                    bestMatch.friendDiff = scoresDiff;
+                }
+            }
+
+            //push results into scoresArray
+            
         }
-    
+friendData.push(newEntry);
         //after all friends are compared, find best match
-        for(var i=0; i<scoresArray.length; i++){
-          if(scoresArray[i] <= scoresArray[bestMatch]){
-            bestMatch = i;
-          }
-        }
-    
-        //return bestMatch data
-        var bff = friendData[bestMatch];
-        res.json(bff);
-    
+       
+        res.json(bestMatch);
+
         //pushes new submission into the friends array
-        friendData.push(req.body);
+        
     });
 
 };
