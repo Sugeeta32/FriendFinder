@@ -2,12 +2,14 @@ var express= require("express");
 var bodyParser= require("body-parser");
 var path = require("path");
 
-var port = process.env.port||3000;
-//var jsonParser = bodyParser.json();
+var PORT = process.env.port||8080;
+var jsonParser = bodyParser.json();
 var app = express();
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+var urlencodedParser = bodyParser.urlencoded({extended: false})
+
+// app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json({ type: "application/**json"}));
 
 
 // ================================================================================
@@ -16,8 +18,8 @@ app.use(express.json());
 // These routes give our server a "map" of how to respond when users visit or request data from various URLs.
 // ================================================================================
 
-require("./routing/apiRoutes")(app);
-require("./routing/htmlRoutes")(app);
+require("./app/routing/apiRoutes.js")(app);
+require("./app/routing/htmlRoutes.js")(app);
 
 // =============================================================================
 // LISTENER
