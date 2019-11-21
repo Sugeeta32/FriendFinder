@@ -1,4 +1,5 @@
 var friendData = require("../data/friends.js");
+var path = require ("path");
 //routing
 
 //tow routes with express parameters
