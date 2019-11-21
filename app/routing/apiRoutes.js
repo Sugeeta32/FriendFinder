@@ -1,5 +1,5 @@
 var friendData = require("../data/friends.js");
-var path = require ("path");
+var path = require("path");
 //routing
 
 //tow routes with express parameters
@@ -38,15 +38,15 @@ module.exports = function (app) {
             }
 
             //push results into scoresArray
-            
+
         }
-friendData.push(newEntry);
+        friendData.push(newEntry);
         //after all friends are compared, find best match
-       
+
         res.json(bestMatch);
 
         //pushes new submission into the friends array
-        
+
     });
 
 };
