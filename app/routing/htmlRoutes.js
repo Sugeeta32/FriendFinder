@@ -1,5 +1,5 @@
 var path = require('path');
-// var friends = require (" ../data/friends");
+// var friends = require (" ../data/friends.js");
 
 //Two HTML Routes
 module.exports = function(app){
@@ -13,8 +13,8 @@ module.exports = function(app){
     res.sendFile(path.join(__dirname,  '/../public/home.html'));
   });
 
-  // app.get("/api/friends", function(req, res) {
-  //   res.sendFile(path.join(friends.friends));
+  //  app.get("/api/friends", function(req, res) {
+  //   res.json(friends.friends);
   // });
 
 }; 
